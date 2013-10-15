@@ -1,0 +1,3 @@
+usr/include/qlogsystem/*
+usr/lib/pkgconfig/*
+usr/lib/lib*.so
