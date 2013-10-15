@@ -1,0 +1,4 @@
+build/*
+*.pro.user
+doc/html/*
+doc/coverage/*

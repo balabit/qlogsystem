@@ -1,0 +1,18 @@
+VERSION = $$system(cat $$PWD/VERSION)
+DEFINES += QLOGSYSTEM_VERSION=\\\"$$VERSION\\\"
+
+INCDIR = $${PREFIX}/include
+LIBDIR = $${PREFIX}/lib
+BINDIR = $${PREFIX}/bin
+
+coverage {
+  message("Configuring compilation for coverage test.")
+  COVERAGE_FLAGS = --coverage -O0
+  QMAKE_CXXFLAGS += $$COVERAGE_FLAGS
+  QMAKE_CCFLAGS  += $$COVERAGE_FLAGS
+  QMAKE_LFLAGS   += $$COVERAGE_FLAGS
+  CONFIG += debug
+}
+
+LIBS += -L$$LIBDIR
+INCLUDEPATH += $$INCDIR

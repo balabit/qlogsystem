@@ -1,0 +1,16 @@
+COV_DIR = $$IN_PWD/doc/coverage
+scan-coverage.target = scan-coverage
+scan-coverage.commands = rm -rf "$${COV_DIR}" &&
+scan-coverage.commands += mkdir -p "$${COV_DIR}" &&
+scan-coverage.commands += cd "$${COV_DIR}" &&
+scan-coverage.commands += lcov -q -c -d "$$OUT_PWD" -o iob-all.cov 2>/dev/null &&
+scan-coverage.commands += lcov -q -e iob-all.cov "*/*.cc" "*/*.hh" -o iob-src.cov && # extract from cc files
+scan-coverage.commands += lcov -q -r iob-src.cov "*/moc_*" "tests/*" -o iob.cov && # remove moc files
+scan-coverage.commands += rm -rf iob-all.cov iob-src.cov &&
+scan-coverage.commands += genhtml -o . iob.cov &&
+scan-coverage.commands += echo "Coverage results: file://$${COV_DIR}/index.html"
+QMAKE_EXTRA_TARGETS += scan-coverage
+
+zero-coverage.target = zero-coverage
+zero-coverage.commands = lcov -z -d "$$OUT_PWD"
+QMAKE_EXTRA_TARGETS += zero-coverage
