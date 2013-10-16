@@ -1,0 +1,9 @@
+target.path = $$PREFIX/tests
+INSTALLS += target
+
+CONFIG += testcase
+
+check.commands = "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$$OUT_PWD/../../qlogsystem" $$check.commands
+
+INCLUDEPATH += $$IN_PWD/qlogsystem
+LIBS += -L$$OUT_PWD/../../qlogsystem -lqlogsystem

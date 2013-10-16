@@ -1,0 +1,27 @@
+Source: qlogsystem
+Section: libs
+Priority: optional
+Build-Depends: debhelper (>= 7.0.50), libqt4-dev, doxygen, lcov
+Maintainer: Domok Tamas <domoktamas@balabit.hu>
+Standards-Version: 1.0
+
+Package: libqlogsystem1
+Section: lib
+Priority: optional
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: qlogsystem
+
+Package: libqlogsystem-dev
+Section: libdevel
+Priority: optional
+Architecture: any
+Depends: libqlogsystem1 (= ${binary:Version})
+Description: qlogsystem dev package
+
+Package: libqlogsystem1-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: libqlogsystem1 (= ${binary:Version}), ${misc:Depends}
+Description: qlogsystem debugging symbols

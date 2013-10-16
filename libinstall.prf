@@ -1,0 +1,14 @@
+include(common.prf)
+
+target.path = $$LIBDIR
+INSTALLS += target
+
+INSTALL_PREFIX = $${INCDIR}/$$replace(_PRO_FILE_PWD_, $$re_escape($$PWD), "")
+INSTALL_HEADERS = $$HEADERS
+include(headerinstall.prf)
+
+QMAKE_PKGCONFIG_NAME = $$TARGET
+QMAKE_PKGCONFIG_DESTDIR = pkgconfig
+QMAKE_PKGCONFIG_INCDIR = ${prefix}/include
+
+CONFIG += create_pc create_prl no_install_prl

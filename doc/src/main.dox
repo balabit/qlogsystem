@@ -1,0 +1,113 @@
+/**
+\mainpage qlogsystem
+
+\section qlogsystem_features Features
+
+<ul>
+  <li>easy to use, simple API</li>
+  <li>convenient log macros (messages with parameters)</li>
+  <li>very fast (late parameter evaluation)</li>
+  <li>threadsafe</li>
+  <li>logger hierarchy: loggers can be organized in a tree structure</li>
+  <li>log messages can have a unique id</li>
+  <li>log format and log output can be composed</li>
+</ul>
+
+@see LOG::LogFormatter
+@see LOG::LogOutput
+@see LOG::Manager
+
+\section qlogsystem_examples Use cases
+
+\image html hierarchy.png
+
+<h3>Creating a logger hierarchy</h3>
+\code
+{
+  // LOG::Manager::Locker will ensure thread-safety
+  // (it locks the Manager in it's constructor and releases it in it's destructor)
+  LOG::Manager::Locker locker;
+
+  // Blue nodes
+  locker.mutable_logger()->set_formatter(new LOG::StandardLogFormatter());
+  locker.mutable_logger()->set_output(LOG::IODeviceOutput::create_from_file(stdout));
+  locker.mutable_logger()->set_level(LOG::NOTICE);
+  // c2 and c3 will use this settings automatically
+
+  // Green nodes
+  locker.mutable_logger("c1")->set_formatter(new LOG::TimestampedStandardLogFormatter());
+  locker.mutable_logger("c1")->set_output(LOG::IODeviceOutput::create_from_file(stderr));
+  locker.mutable_logger("c1")->set_level(LOG::INFO);
+  // c1.c11 and c1.c12 will use this settings automatically
+
+  // Yellow node
+  locker.mutable_logger("c3.c31")->set_formatter(new LOG::TimestampedStandardLogFormatter());
+  locker.mutable_logger("c3.c31")->set_output(LOG::IODeviceOutput::create_from_file("logoutput.txt"));
+  locker.mutable_logger("c3.c31")->set_level(LOG::DUMP);
+}
+\endcode
+
+<h3>Using the log macros</h3>
+
+\code
+QString key("value");
+int twenty = 20;
+QRect rect(0, 0, 100, 100);
+
+// standard error
+log_critical("c1", 0, "Hello qlogsystem!");
+log_error("c1", 1, "log message - parameters without name", P1(key), P1(twenty), P1(rect));
+log_notice("c1", 2, "log message - parameters with name", P2("name", 5), P2("key", "value"), P2("rect", QRect(2, 3, 5, 5)));
+log_info("c1.c12", 2, "cat logoutput.txt");
+
+// stdout
+log_info("c2", 3, "Hello to stdout!");
+// won't be logged (log level...)
+log_debug("c3", 4, "Hello to stdout! It will not be logged to stdout");
+
+// standard error
+log_info("c1.c11", 5, "it will be logged to the standard error");
+// won't be logged (log level...)
+log_extended_info("c1.c11", 6, "it will not be logged to the standard error");
+
+// file
+log_debug("c3.c31", 8, "log level test");
+log_trace("c3.c31", 8, "log level test");
+log_dump("c3.c31", 9, "log level test");
+log_hexdump("c3.c31", 10, hexdump, sizeof(hexdump));
+\endcode
+
+<b>NOTE check the full example</b>
+
+\section qlogsystem_building Building
+
+The qlogsystem project can be built easily, see the example below.
+
+Optional dependencies for coverage results and documentation:
+ - lcov, gcov
+ - doxygen, graphviz
+
+\code
+# Shadow build
+mkdir build && cd build
+
+# Configuring for coverage tests
+qmake ../project.pro CONFIG+=coverage PREFIX=$PWD/install
+
+# Build
+make
+
+# Run the tests
+make check
+
+# Collect the tests results
+make scan-coverage
+
+# Generate the doxygen documentation
+make docs
+
+# Install the project (output: PREFIX/...)
+make install
+\endcode
+
+*/
