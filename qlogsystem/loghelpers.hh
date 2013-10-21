@@ -21,6 +21,15 @@ namespace LOG
     return string.trimmed();
   }
 
+  template< >
+  inline QString qdebug_to_string< QString >(const QString &qt_object)
+  {
+    QString string;
+    QDebug debug(&string);
+    debug.nospace() << qPrintable(qt_object);
+    return string.trimmed();
+  }
+
   /**
    * ParameterPair represents a key value pair.
    */

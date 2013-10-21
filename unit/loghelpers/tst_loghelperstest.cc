@@ -60,6 +60,9 @@ LoghelpersTest::test_qdebug_to_qstring()
 {
   QCOMPARE(LOG::qdebug_to_string(QRect(10, 10, 50, 50)),
            QString("QRect(10,10 50x50)"));
+
+  QCOMPARE(LOG::qdebug_to_string(QString("a")),
+           QString("a"));
 }
 
 void
