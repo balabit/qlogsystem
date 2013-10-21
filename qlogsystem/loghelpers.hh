@@ -24,10 +24,7 @@ namespace LOG
   template< >
   inline QString qdebug_to_string< QString >(const QString &qt_object)
   {
-    QString string;
-    QDebug debug(&string);
-    debug.nospace() << qPrintable(qt_object);
-    return string.trimmed();
+    return qdebug_to_string(qPrintable(qt_object));
   }
 
   /**
