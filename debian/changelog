@@ -1,3 +1,9 @@
+qlogsystem (1.0.3) precise; urgency=low
+
+  * Fixed packaging
+
+ -- Laszlo Attila Toth <panther@balabit.hu>  Thu, 24 Oct 2013 11:29:27 +0200
+
 qlogsystem (1.0.0) precise; urgency=low
 
   * Init.
