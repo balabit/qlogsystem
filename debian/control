@@ -3,7 +3,7 @@ Section: libs
 Priority: optional
 Build-Depends: debhelper (>= 7.0.50), libqt4-dev, doxygen, lcov
 Maintainer: Domok Tamas <domoktamas@balabit.hu>
-Standards-Version: 1.0
+Standards-Version: 3.9.2
 
 Package: libqlogsystem1
 Section: lib
