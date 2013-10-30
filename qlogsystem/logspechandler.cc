@@ -19,6 +19,12 @@ namespace LOG
     LogSpecHandler::Error error;
   };
 
+  struct Component
+  {
+    QString name;
+    Level level;
+  };
+
 } // LOG
 
 using namespace LOG;
@@ -37,10 +43,15 @@ LogSpecHandler::update_logsystem(const QString &log_spec)
 {
   QStringList setting_entries = log_spec.split(";", QString::SkipEmptyParts);
 
+  typedef QList< Component > Components;
+  Components components;
+
   int pos = 0;
   foreach (const QString &component_setup, setting_entries)
     {
       QStringList pair = component_setup.split(":");
+
+      Component component;
 
       if (pair.size() != 2)
         {
@@ -49,9 +60,9 @@ LogSpecHandler::update_logsystem(const QString &log_spec)
           return false;
         }
 
-      const QString &component_name = pair.at(0);
+      component.name = pair.at(0);
 
-      pos += component_name.size();
+      pos += component.name.size();
       pos += 1; // < :
 
       bool ok = false;
@@ -64,11 +75,18 @@ LogSpecHandler::update_logsystem(const QString &log_spec)
           return false;
         }
 
+      component.level = get_log_level_from_int(log_level);
+
       pos += pair.at(1).size();
       pos += 1; // < ;
 
-      Manager::Locker locker;
-      locker.mutable_logger(component_name)->set_level(get_log_level_from_int(log_level));
+      components << component;
+    }
+
+  Manager::Locker locker;
+  foreach (const Component &component, components)
+    {
+      locker.mutable_logger(component.name)->set_level(component.level);
     }
 
   return true;

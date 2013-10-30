@@ -7,8 +7,7 @@ namespace LOG
 {
 
   /**
-   * With LogSpecHandler one can update the log components log levels
-   * by a simple string.
+   * With LogSpecHandler one can update the log levels of the components by a simple string.
    */
   class LogSpecHandler
   {
@@ -25,6 +24,7 @@ namespace LOG
 
     /**
      * Updates the logsystem with the given log spec.
+     * The changes takes place only if there was not any error.
      *
      * syntax: &lt;component_name&gt;:&lt;log_level&gt;;&lt;component_name&gt;:&lt;log_level&gt;
      *
@@ -33,6 +33,11 @@ namespace LOG
      */
     bool update_logsystem(const QString &log_spec);
 
+    /**
+     * The error type.
+     *
+     * @return The type of the error, or None.
+     */
     Error error() const;
 
     /**
