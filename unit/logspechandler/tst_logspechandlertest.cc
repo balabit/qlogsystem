@@ -18,6 +18,7 @@ private Q_SLOTS:
   void test_long_spec_error_string();
   void test_valid_case();
   void test_update_logspec_is_transaction_like();
+  void test_error_is_only_for_the_last_update();
 
 private:
   LOG::LogSpecHandler *logspec_handler;
@@ -90,6 +91,15 @@ LogspechandlerTest::test_update_logspec_is_transaction_like()
 
   QVERIFY(LOG::Manager::instance()->logger("comp1")->need_log(LOG::DEBUG) == false);
   QVERIFY(LOG::Manager::instance()->logger("comp2")->need_log(LOG::INFO) == false);
+}
+
+void
+LogspechandlerTest::test_error_is_only_for_the_last_update()
+{
+  logspec_handler->update_logsystem("a:b");
+  QCOMPARE(LOG::LogSpecHandler::InvalidLogLevel, logspec_handler->error());
+  logspec_handler->update_logsystem("a:1");
+  QCOMPARE(LOG::LogSpecHandler::None, logspec_handler->error());
 }
 
 QTEST_APPLESS_MAIN(LogspechandlerTest)

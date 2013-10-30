@@ -41,6 +41,9 @@ LogSpecHandler::~LogSpecHandler()
 bool
 LogSpecHandler::update_logsystem(const QString &log_spec)
 {
+  d->error = None;
+  d->errorString.clear();
+
   QStringList setting_entries = log_spec.split(";", QString::SkipEmptyParts);
 
   typedef QList< Component > Components;
@@ -109,8 +112,6 @@ LogSpecHandler::errorString() const
 void
 LogSpecHandlerPrivate::createErrorString(const QString &log_spec, int pos)
 {
-  errorString.clear();
-
   QTextStream stream(&errorString);
   stream.setCodec("utf-8");
 
