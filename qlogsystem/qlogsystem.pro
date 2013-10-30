@@ -12,7 +12,8 @@ SOURCES += \
     manager.cc \
     standardlogformatter.cc \
     timestampedstandardlogformatter.cc \
-    iodeviceoutput.cc
+    iodeviceoutput.cc \
+    logspechandler.cc
 
 HEADERS += \
     manager.hh \
@@ -25,7 +26,8 @@ HEADERS += \
     logoutput.hh \
     qlogsystem.hh \
     loghelpers.hh \
-    qlogsystem_global.hh
+    qlogsystem_global.hh \
+    logspechandler.hh
 
 QMAKE_PKGCONFIG_DESCRIPTION = Logging library for Qt
 include(../libinstall.prf)
