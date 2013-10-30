@@ -77,6 +77,19 @@ log_dump("c3.c31", 9, "log level test");
 log_hexdump("c3.c31", 10, hexdump, sizeof(hexdump));
 \endcode
 
+<h3>Logspec - changing log components dynamically</h3>
+
+\code
+LOG::LogSpecHandler logspec;
+if (!logspec.update_logsystem("c3:5;c3.c31:7"))
+  {
+    std::cout << logspec.errorString().toStdString() << std::endl;
+    return 1;
+  }
+\endcode
+
+@see LOG::LogSpecHandler
+
 <b>NOTE check the full example</b>
 
 \section qlogsystem_building Building

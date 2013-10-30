@@ -3,9 +3,13 @@
 #include "iodeviceoutput.hh"
 
 #include "qlogsystem.hh"
+#include "logspechandler.hh"
 
 #include <QCoreApplication>
+#include <QStringList>
 #include <QRect>
+
+#include <iostream>
 #include <stdio.h>
 
 const quint8 hexdump[] =
@@ -54,6 +58,17 @@ main(int argc, char *argv[])
   Q_UNUSED(app);
 
   init_logger_hierarchy();
+
+  QStringList args = app.arguments();
+  if (args.count() == 2)
+    {
+      LOG::LogSpecHandler logspec;
+      if (!logspec.update_logsystem(args.at(1)))
+        {
+          std::cout << logspec.errorString().toStdString() << std::endl;
+          return 1;
+        }
+    }
 
   QString key("value");
   int twenty = 20;
