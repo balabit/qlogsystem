@@ -1,3 +1,9 @@
+qlogsystem (1.0.4) precise; urgency=low
+
+  * Logspec parsing.
+
+ -- Domok Tamas <domoktamas@balabit.hu>  Wed, 30 Oct 2013 13:33:27 +0200
+
 qlogsystem (1.0.3) precise; urgency=low
 
   * Fixed packaging

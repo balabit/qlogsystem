@@ -9,6 +9,7 @@ SUBDIRS += \
     standardlogformatter \
     timestampedstandardlogformatter \
     threadsafety \
-    macros
+    macros \
+    logspechandler
 
 HEADERS += common.hh

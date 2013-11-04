@@ -1,3 +1,12 @@
+TEMPLATE = app
+
+QT       += testlib network
+
+!contains(TARGET, ^tst_.*):TARGET = $$join(TARGET,,"tst_")
+
+CONFIG   += console testcase
+CONFIG   -= app_bundle
+
 target.path = $$PREFIX/tests
 INSTALLS += target
 
