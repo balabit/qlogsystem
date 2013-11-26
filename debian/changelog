@@ -1,3 +1,9 @@
+qlogsystem (1.0.5) precise; urgency=low
+
+  * Loggers are changeable.
+
+ -- Domok Tamas <domoktamas@balabit.hu>  Tue, 26 Nov 2013 14:27:27 +0200
+
 qlogsystem (1.0.4) precise; urgency=low
 
   * Logspec parsing.
