@@ -128,6 +128,23 @@ Manager::Locker::mutable_logger(const QString &id)
   return Manager::instance()->mutable_logger(id);
 }
 
+void
+Manager::Locker::delete_logger(const QString &id)
+{
+  if (!id.isEmpty())
+    {
+      Manager *manager = Manager::instance();
+
+      foreach (const QString &key, manager->d->loggers.keys())
+        {
+          if (key.startsWith(id))
+            {
+              delete manager->d->loggers.take(key);
+            }
+        }
+    }
+}
+
 // Manager
 
 Manager::Manager()

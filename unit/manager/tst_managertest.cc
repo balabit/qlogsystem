@@ -16,6 +16,7 @@ private Q_SLOTS:
   void test_root_logger();
   void test_logger_hierarchy();
   void test_loggerref_copy_and_locker();
+  void test_logger_deletion();
 };
 
 ManagerTest::ManagerTest()
@@ -68,6 +69,37 @@ ManagerTest::test_loggerref_copy_and_locker()
   LOG::Manager::Locker locker;
 
   QVERIFY(true); // No deadlock happend
+}
+
+void
+ManagerTest::test_logger_deletion()
+{
+  {
+    LOG::Manager::Locker locker;
+    locker.mutable_logger("1.2");
+    locker.mutable_logger("1");
+
+    locker.mutable_logger("1")->set_level(LOG::DEBUG);
+  }
+
+  QVERIFY(LOG::Manager::instance()->logger("1.2")->need_log(LOG::DEBUG));
+  QVERIFY(LOG::Manager::instance()->logger("1")->need_log(LOG::DEBUG));
+
+  {
+    LOG::Manager::Locker locker;
+    locker.delete_logger("1");
+  }
+
+  QVERIFY(LOG::Manager::instance()->logger("1.2")->need_log(LOG::DEBUG) == false);
+  QVERIFY(LOG::Manager::instance()->logger("1")->need_log(LOG::DEBUG) == false);
+
+  {
+    LOG::Manager::Locker locker;
+    locker.delete_logger(""); // root logger cannot be deleted
+  }
+
+  QVERIFY(LOG::Manager::instance()->logger("1.2")->need_log(LOG::DEBUG) == false);
+  QVERIFY(LOG::Manager::instance()->logger("1")->need_log(LOG::DEBUG) == false);
 }
 
 QTEST_APPLESS_MAIN(ManagerTest)
