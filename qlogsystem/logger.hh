@@ -41,6 +41,20 @@ namespace LOG
     void set_output(LogOutput *log_output);
 
     /**
+     * Getter for the current log formatter.
+     *
+     * @return Reference for the formatter.
+     */
+    LogFormatter &formatter();
+
+    /**
+     * Getter for the current log output.
+     *
+     * @return Reference for the output.
+     */
+    LogOutput &output();
+
+    /**
      * Sets the log level to the given level.
      *
      * @param level The maximum level of messages to log.

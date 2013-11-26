@@ -30,6 +30,9 @@ namespace LOG
 
     bool need_log(const Level &level);
 
+    LogFormatter *get_formatter();
+    LogOutput *get_output();
+
   public:
     QString name;
     Logger  *parent;
@@ -68,6 +71,18 @@ Logger::set_output(LogOutput *log_output)
   d->log_output = log_output;
 }
 
+LogFormatter &
+Logger::formatter()
+{
+  return *(d->get_formatter());
+}
+
+LogOutput &
+Logger::output()
+{
+  return *(d->get_output());
+}
+
 void
 Logger::set_level(const Level &level)
 {
@@ -92,19 +107,29 @@ Logger::log(const Level &level, const quint32 &log_id, const QString &message) c
 QString
 LoggerPrivate::format_log(const QString &name, const Level &level, const quint32 &log_id, const QString &message)
 {
-  return (formatter) ? formatter->format_log(name, level, log_id, message) :
-                       parent->d->format_log(name, level, log_id, message);
+  return get_formatter()->format_log(name, level, log_id, message);
 }
 
 void
 LoggerPrivate::log(const QString &message)
 {
-  return (log_output) ? log_output->write_log(message) :
-                        parent->d->log(message);
+  get_output()->write_log(message);
 }
 
 bool
 LoggerPrivate::need_log(const Level &level)
 {
   return (use_parent_level && parent) ? parent->d->need_log(level) : this->level >= level;
+}
+
+LogFormatter *
+LoggerPrivate::get_formatter()
+{
+  return (formatter) ? formatter : parent->d->get_formatter();
+}
+
+LogOutput *
+LoggerPrivate::get_output()
+{
+  return (log_output) ? log_output : parent->d->get_output();
 }

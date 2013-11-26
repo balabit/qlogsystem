@@ -21,6 +21,8 @@ private Q_SLOTS:
   void test_logger_different_log_level_than_parent();
   void test_logger_different_formatter_than_parent();
   void test_logger_different_output_than_parent();
+  void test_logger_change_formatter();
+  void test_logger_change_output();
 
 private:
   void assert_output_and_formatter(const QString &logger_name);
@@ -131,6 +133,18 @@ LoggerTest::test_logger_different_output_than_parent()
 
   QVERIFY(output->buffered_message.isEmpty());
   QCOMPARE(output2->buffered_message, message);
+}
+
+void
+LoggerTest::test_logger_change_formatter()
+{
+  QVERIFY(&(configured_logger->formatter()) == formatter);
+}
+
+void
+LoggerTest::test_logger_change_output()
+{
+  QVERIFY(&(configured_logger->output()) == output);
 }
 
 void

@@ -77,6 +77,13 @@ namespace LOG
        * @return The logger which can be safely changed.
        */
       Logger *mutable_logger(const QString &id = "");
+
+      /**
+       * Delete logger and it's children.
+       *
+       * @param id The logger's id.
+       */
+      void delete_logger(const QString &id);
     };
 
     ~Manager();
