@@ -92,6 +92,33 @@ if (!logspec.update_logsystem("c3:5;c3.c31:7"))
 
 <b>NOTE check the full example</b>
 
+\section qlogsystem_logid Unique Log IDs
+
+Log messages can be identified with unique log ids.
+In the scripts directory there are two python scripts to ensure unique log ids in a project.
+
+<b>logid-generator.py</b>
+
+The script walks through a given directory reqursively and checks or modifies the ids of the log messages.
+The root directory must contain a VERSION file. The version must start from 1.0.0.
+
+<b>logid-info.py</b>
+From a given log-id it is possible to extract the version information.
+
+Examples:
+
+\code
+# Generating log ids in a given directory
+# NOTE: it will modify the files!
+python2 scripts/logid-generator.py -d <directory>
+
+# Checking log ids in a given directory (uniquity, not-null ids)
+python2 scripts/logid-generator.py -d <directory> -c
+
+# Log id to version
+python2 scripts/logid-info.py <log-id>
+\endcode
+
 \section qlogsystem_building Building
 
 The qlogsystem project can be built easily, see the example below.

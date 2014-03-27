@@ -9,7 +9,8 @@ SUBDIRS += \
 
 OTHER_FILES += \
     *.prf \
-    doc/src/*.dox
+    doc/src/*.dox \
+    scripts/*.py
 
 include(coverage.prf)
 include(doxy.prf)
