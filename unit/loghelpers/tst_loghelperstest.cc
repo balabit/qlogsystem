@@ -21,6 +21,7 @@ private Q_SLOTS:
   void test_parameter_pair_empty();
   void test_parameter_pair_normal();
   void test_parameter_pair_custom_delimiter();
+  void test_parameter_pair_to_qdebug_stream();
   void test_log_func_no_extra_params();
   void test_log_func_no_extra_params_all_extra_params();
   void test_hexdump_with_null_length();
@@ -68,22 +69,32 @@ LoghelpersTest::test_qdebug_to_qstring()
 void
 LoghelpersTest::test_parameter_pair_empty()
 {
-  QCOMPARE(LOG::ParameterPair().string(),
+  QCOMPARE(log_parameter_as_string(LOG::ParameterPair()),
            QString());
 }
 
 void
 LoghelpersTest::test_parameter_pair_normal()
 {
-  QCOMPARE(LOG::ParameterPair("key", "value").string(),
+  QCOMPARE(log_parameter_as_string(LOG::ParameterPair("key", "value")),
            QString(", key='value'"));
 }
 
 void
 LoghelpersTest::test_parameter_pair_custom_delimiter()
 {
-  QCOMPARE(LOG::ParameterPair("key", "value").string(";"),
+  QCOMPARE(log_parameter_as_string(LOG::ParameterPair("key", "value"), ";"),
            QString("; key='value'"));
+}
+
+void
+LoghelpersTest::test_parameter_pair_to_qdebug_stream()
+{
+  QString string;
+  QDebug debug(&string);
+  LOG::ParameterPair parameter("key", "value");
+  debug << parameter;
+  QCOMPARE(string, QString("key='value'"));
 }
 
 void

@@ -2,6 +2,7 @@
 #define LOGSYSTEM_LOGHELPERS_HH
 
 #include <QDebug>
+#include <QTextStream>
 
 #include "logger.hh"
 
@@ -40,53 +41,65 @@ namespace LOG
                   const QString &value)
       : empty(false),
         key(key),
-        value(value)
+        value(value),
+        delimiter(",")
     { }
 
-    QString string(const QString &delimiter = ",") const
+    friend QDebug &operator<<(QDebug &debug, const LOG::ParameterPair &parameter)
     {
-      if (!empty)
-        {
-          return QString("%1 %2='%3'")
-              .arg(delimiter)
-              .arg(key)
-              .arg(value);
-        }
-
-      return QString();
+      debug.nospace() << qPrintable(parameter.key) << "='" << qPrintable(parameter.value) << "'";
+      return debug.maybeSpace();
     }
 
-  private:
+    friend QTextStream &operator<<(QTextStream &stream, const LOG::ParameterPair &parameter)
+    {
+      if (!parameter.empty)
+        {
+          stream << parameter.delimiter << " " << parameter.key << "='" << parameter.value << "'";
+        }
+
+      return stream;
+    }
+
     bool empty;
     QString key;
     QString value;
+    QString delimiter;
   };
+
+} // LOG
+
+namespace LOG
+{
 
   /**
    * Constructs a log message with parameters.
    */
   inline void
   log_func(const Logger *logger, const Level &level, const quint32 &log_id, const QString &msg,
-           const ParameterPair &param1 = ParameterPair(), const ParameterPair &param2 = ParameterPair(),
+           ParameterPair param1 = ParameterPair(), const ParameterPair &param2 = ParameterPair(),
            const ParameterPair &param3 = ParameterPair(), const ParameterPair &param4 = ParameterPair(),
            const ParameterPair &param5 = ParameterPair(), const ParameterPair &param6 = ParameterPair(),
            const ParameterPair &param7 = ParameterPair(), const ParameterPair &param8 = ParameterPair(),
            const ParameterPair &param9 = ParameterPair(), const ParameterPair &param10 = ParameterPair())
   {
-    logger->log(level, log_id,
-                QString("%1%2%3%4%5%6%7%8%9%10%11")
-                .arg(msg)
-                .arg(param1.string(";"))
-                .arg(param2.string())
-                .arg(param3.string())
-                .arg(param4.string())
-                .arg(param5.string())
-                .arg(param6.string())
-                .arg(param7.string())
-                .arg(param8.string())
-                .arg(param9.string())
-                .arg(param10.string())
-                );
+    QString message;
+
+    QTextStream stream(&message);
+    stream.setCodec("utf-8");
+
+    param1.delimiter = QString(";");
+
+    stream << msg
+           << param1 << param2
+           << param3 << param4
+           << param5 << param6
+           << param7 << param8
+           << param9 << param10;
+
+    stream.flush();
+
+    logger->log(level, log_id, message);
   }
 
   inline quint32 align(const quint32 &value, const quint32 &alignment)

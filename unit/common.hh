@@ -1,6 +1,10 @@
+#ifndef QLOGSYSTEM_TESTS_COMMON_HH
+#define QLOGSYSTEM_TESTS_COMMON_HH
+
 #include "logger.hh"
 #include "logoutput.hh"
 #include "logformatter.hh"
+#include "loghelpers.hh"
 
 class LoggerMock : public LOG::Logger
 {
@@ -47,3 +51,16 @@ public:
 
   QString buffered_message;
 };
+
+QString
+log_parameter_as_string(LOG::ParameterPair parameter, const QString &delimiter = QString(","))
+{
+  QString string;
+  QTextStream stream(&string);
+  parameter.delimiter = delimiter;
+  stream << parameter;
+  stream.flush();
+  return string;
+}
+
+#endif // QLOGSYSTEM_TESTS_COMMON_HH
