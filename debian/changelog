@@ -1,3 +1,9 @@
+qlogsystem (1.0.6) precise; urgency=low
+
+  * Performance boost.
+
+ -- Domok Tamas <domoktamas@balabit.hu>  Tue, 08 Apr 2014 09:25:00 +0200
+
 qlogsystem (1.0.5) precise; urgency=low
 
   * Loggers are changeable.
