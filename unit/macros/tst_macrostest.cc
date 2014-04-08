@@ -62,15 +62,15 @@ MacrosTest::test_P1()
 {
   int value = 5;
   QRect rect(0, 0, 10, 10);
-  QCOMPARE(P1(value).string(), LOG::ParameterPair("value", "5").string());
-  QCOMPARE(P1(rect).string(), LOG::ParameterPair("rect", "QRect(0,0 10x10)").string());
+  QCOMPARE(log_parameter_as_string(P1(value)), log_parameter_as_string(LOG::ParameterPair("value", "5")));
+  QCOMPARE(log_parameter_as_string(P1(rect)), log_parameter_as_string(LOG::ParameterPair("rect", "QRect(0,0 10x10)")));
 }
 
 void
 MacrosTest::test_P2()
 {
-  QCOMPARE(P2("value", 5).string(), LOG::ParameterPair("value", "5").string());
-  QCOMPARE(P2("rect", QRect(0, 0, 10, 10)).string(), LOG::ParameterPair("rect", "QRect(0,0 10x10)").string());
+  QCOMPARE(log_parameter_as_string(P2("value", 5)), log_parameter_as_string(LOG::ParameterPair("value", "5")));
+  QCOMPARE(log_parameter_as_string(P2("rect", QRect(0, 0, 10, 10))), log_parameter_as_string(LOG::ParameterPair("rect", "QRect(0,0 10x10)")));
 }
 
 void
