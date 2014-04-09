@@ -19,7 +19,7 @@ MINOR = 32
 BUILD = 32
 
 # Find log messages, there is a format ID string parameter
-log_re_string = r'log_(?P<TYPE>\w+)\((?P<COMPONENT>(\w|::)+)\,(\s|)%(ID)s,(\s|)(?P<MSG>.*)'
+log_re_string = r'log_(?P<TYPE>\w+)\((?P<COMPONENT>(\w|::|\->)+)\,(\s|)%(ID)s,(\s|)(?P<MSG>.*)'
 # RE for finding log messages with 0 ID
 log0_re = re.compile(log_re_string % {'ID': 0})
 log_max_re = re.compile(log_re_string % {'ID': '(?P<ID>\d+)'})
