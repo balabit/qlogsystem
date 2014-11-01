@@ -60,7 +60,7 @@ IODeviceOutput::create_from_file(const QString &filepath)
 }
 
 IODeviceOutput *
-IODeviceOutput::create_from_file(_IO_FILE *file_descriptor)
+IODeviceOutput::create_from_file(FILE *file_descriptor)
 {
   QFile *filelogger = new QFile();
   filelogger->open(file_descriptor, QIODevice::WriteOnly | QIODevice::Text);

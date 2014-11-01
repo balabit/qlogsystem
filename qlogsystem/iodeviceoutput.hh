@@ -49,7 +49,7 @@ namespace LOG
      *
      * @return An IODeviceOutput on success, otherwise 0.
      */
-    static IODeviceOutput *create_from_file(_IO_FILE *file_descriptor);
+    static IODeviceOutput *create_from_file(FILE *file_descriptor);
 
     /**
      * Creates an IODeviceOutput from the given device.
