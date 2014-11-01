@@ -12,7 +12,22 @@ INSTALLS += target
 
 CONFIG += testcase
 
-check.commands = "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$$OUT_PWD/../../qlogsystem" $$check.commands
+windows {
+  debug {
+    build_path = $${OUT_PWD}/../../qlogsystem/debug
+  } else {
+    build_path = $${OUT_PWD}/../../qlogsystem/release
+  }
+} else {
+  build_path = $${OUT_PWD}/../../qlogsystem
+}
 
-INCLUDEPATH += $$IN_PWD/qlogsystem
-LIBS += -L$$OUT_PWD/../../qlogsystem -lqlogsystem
+# ugly hack
+windows {
+  check.commands = "cp $${build_path}/qlogsystem.dll . &&" $$check.commands
+} else {
+  check.commands = "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$${OUT_PWD}/../../qlogsystem" $$check.commands
+}
+
+INCLUDEPATH += $${IN_PWD}/qlogsystem
+LIBS += -L$${build_path} -lqlogsystem
