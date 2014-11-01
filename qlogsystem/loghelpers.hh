@@ -183,7 +183,7 @@ namespace LOG
 } // LOG
 
 // Macro magic
-#define qcall_log_func(ID,LEVEL,MESSAGE...) LOG::log_func(logger.operator->(), LEVEL, ID, MESSAGE);
+#define qcall_log_func(ID,LEVEL,MESSAGE,...) LOG::log_func(logger.operator->(), LEVEL, ID, MESSAGE, ##__VA_ARGS__);
 #define qcall_log_hexdump(ID,LEVEL,DATA,SIZE,INDENTATION,BLOCKSIZE) LOG::log_hexdump_func(logger.operator->(), LEVEL, static_cast< const quint8* >(DATA), SIZE, INDENTATION, BLOCKSIZE);
 
 #define qcall_function_when_needed(LOGGER,ID,LEVEL,FUNCTION)  \
@@ -193,7 +193,7 @@ namespace LOG
       FUNCTION \
   }while(0)
 
-#define qlog_helper_function(LOGGER,ID,LEVEL,MESSAGE...) qcall_function_when_needed(LOGGER,ID,LEVEL,qcall_log_func(ID,LEVEL,MESSAGE))
+#define qlog_helper_function(LOGGER,ID,LEVEL,MESSAGE,...) qcall_function_when_needed(LOGGER,ID,LEVEL,qcall_log_func(ID,LEVEL,MESSAGE,##__VA_ARGS__))
 #define qlog_helper_hexdump_function(LOGGER,ID,LEVEL,DATA,SIZE,INDENTATION,BLOCKSIZE) qcall_function_when_needed(LOGGER,ID,LEVEL,qcall_log_hexdump(ID,LEVEL,DATA,SIZE,INDENTATION,BLOCKSIZE))
 
 #endif // LOGSYSTEM_LOGHELPERS_HH
