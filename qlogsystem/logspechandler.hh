@@ -28,7 +28,7 @@ namespace LOG
   /**
    * With LogSpecHandler one can update the log levels of the components by a simple string.
    */
-  class LogSpecHandler
+  class QLOGSYSTEMSHARED_EXPORT LogSpecHandler
   {
   public:
     enum Error

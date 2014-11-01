@@ -53,7 +53,7 @@ namespace LOG
      * LoggerRef provides a const Logger pointer interface for logging.
      * The acquired logger count is maintained in the manager.
      */
-    class LoggerRef
+    class QLOGSYSTEMSHARED_EXPORT LoggerRef
     {
     public:
       ~LoggerRef();
@@ -77,7 +77,7 @@ namespace LOG
      * The locker can be used only when all LoggerRef was freed, otherwise
      * it will end up in a mutex-lock (deadlock).
      */
-    class Locker
+    class QLOGSYSTEMSHARED_EXPORT Locker
     {
     public:
       /**
