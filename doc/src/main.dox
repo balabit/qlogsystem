@@ -152,4 +152,10 @@ make docs
 make install
 \endcode
 
+\section qlogsystem_licensing Licensing
+
+The project is licensed under the <a href="https://www.gnu.org/licenses/lgpl-2.1.html" target="_blank">LGPL v2.1</a> license.
+
+Copyright (c) BalaBit IT Ltd, Budapest, Hungary
+
 */

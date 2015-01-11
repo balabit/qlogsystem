@@ -41,7 +41,16 @@ make install
 See the documentation for further examples (e.g: how to run the tests.).
 (make docs)
 
+
 Documentation
 -------------
 
 See doc/src/main.dox for details.
+
+
+Licensing
+---------
+
+The project is licensed under the LGPL v2.1 license.
+
+Copyright (c) BalaBit IT Ltd, Budapest, Hungary
