@@ -1,3 +1,22 @@
+/**********************************************************************************
+ * Copyright (c) 2013-2015 BalaBit IT Ltd, Budapest, Hungary
+ *
+ * This file is part of qlogsystem.
+ *
+ * qlogsystem is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation.
+ *
+ * qlogsystem is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with qlogsystem; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ **********************************************************************************/
+
 #ifndef QLOGSYSTEM_MANAGER_HH
 #define QLOGSYSTEM_MANAGER_HH
 
@@ -34,7 +53,7 @@ namespace LOG
      * LoggerRef provides a const Logger pointer interface for logging.
      * The acquired logger count is maintained in the manager.
      */
-    class LoggerRef
+    class QLOGSYSTEMSHARED_EXPORT LoggerRef
     {
     public:
       ~LoggerRef();
@@ -58,7 +77,7 @@ namespace LOG
      * The locker can be used only when all LoggerRef was freed, otherwise
      * it will end up in a mutex-lock (deadlock).
      */
-    class Locker
+    class QLOGSYSTEMSHARED_EXPORT Locker
     {
     public:
       /**

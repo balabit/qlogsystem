@@ -1,3 +1,22 @@
+/**********************************************************************************
+ * Copyright (c) 2013-2015 BalaBit IT Ltd, Budapest, Hungary
+ *
+ * This file is part of qlogsystem.
+ *
+ * qlogsystem is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation.
+ *
+ * qlogsystem is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with qlogsystem; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ **********************************************************************************/
+
 #ifndef LOGSYSTEM_LOGHELPERS_HH
 #define LOGSYSTEM_LOGHELPERS_HH
 
@@ -164,7 +183,7 @@ namespace LOG
 } // LOG
 
 // Macro magic
-#define qcall_log_func(ID,LEVEL,MESSAGE...) LOG::log_func(logger.operator->(), LEVEL, ID, MESSAGE);
+#define qcall_log_func(ID,LEVEL,MESSAGE,...) LOG::log_func(logger.operator->(), LEVEL, ID, MESSAGE, ##__VA_ARGS__);
 #define qcall_log_hexdump(ID,LEVEL,DATA,SIZE,INDENTATION,BLOCKSIZE) LOG::log_hexdump_func(logger.operator->(), LEVEL, static_cast< const quint8* >(DATA), SIZE, INDENTATION, BLOCKSIZE);
 
 #define qcall_function_when_needed(LOGGER,ID,LEVEL,FUNCTION)  \
@@ -174,7 +193,7 @@ namespace LOG
       FUNCTION \
   }while(0)
 
-#define qlog_helper_function(LOGGER,ID,LEVEL,MESSAGE...) qcall_function_when_needed(LOGGER,ID,LEVEL,qcall_log_func(ID,LEVEL,MESSAGE))
+#define qlog_helper_function(LOGGER,ID,LEVEL,MESSAGE,...) qcall_function_when_needed(LOGGER,ID,LEVEL,qcall_log_func(ID,LEVEL,MESSAGE,##__VA_ARGS__))
 #define qlog_helper_hexdump_function(LOGGER,ID,LEVEL,DATA,SIZE,INDENTATION,BLOCKSIZE) qcall_function_when_needed(LOGGER,ID,LEVEL,qcall_log_hexdump(ID,LEVEL,DATA,SIZE,INDENTATION,BLOCKSIZE))
 
 #endif // LOGSYSTEM_LOGHELPERS_HH

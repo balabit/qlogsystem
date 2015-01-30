@@ -1,3 +1,10 @@
+qlogsystem (1.0.7) precise; urgency=low
+
+  * msvc compile fixes
+  * LGPL v2.1 license
+
+ -- Domok Tamas <tamas.domok@balabit.com>  Mon, 12 Jan 2015 09:35:00 +0200
+
 qlogsystem (1.0.6) precise; urgency=low
 
   * Performance boost.

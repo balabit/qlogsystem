@@ -3,14 +3,16 @@
 
 \section qlogsystem_features Features
 
+qlogsystem is a very efficient and easy to use logger library written in C++ (using the Qt framework). qlogsystem brings Java style logger hierarchy to C++ with a very simple API, which makes possible to use it in libraries too. With a proper logger hierarchy log message can be categorized and filtered in run-time. The format of the log messages and the output can be configured and changed separately. qlogsystem is very fast. The log messages and their parameters are evaluated only if the log level is big enough, so debug messages will not affect the performance much. qlogsystem is thread safe, but locking is done only when needed.
+
 <ul>
   <li>easy to use, simple API</li>
   <li>convenient log macros (messages with parameters)</li>
   <li>very fast (late parameter evaluation)</li>
   <li>threadsafe</li>
-  <li>logger hierarchy: loggers can be organized in a tree structure</li>
-  <li>log messages can have a unique id</li>
-  <li>log format and log output can be composed</li>
+  <li>java style logger hierarchy</li>
+  <li>unique id for log messages</li>
+  <li>log format and log output can be tweaked</li>
 </ul>
 
 @see LOG::LogFormatter
@@ -149,5 +151,11 @@ make docs
 # Install the project (output: PREFIX/...)
 make install
 \endcode
+
+\section qlogsystem_licensing Licensing
+
+The project is licensed under the <a href="https://www.gnu.org/licenses/lgpl-2.1.html" target="_blank">LGPL v2.1</a> license.
+
+Copyright (c) BalaBit IT Ltd, Budapest, Hungary
 
 */
