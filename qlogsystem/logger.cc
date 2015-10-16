@@ -49,6 +49,8 @@ namespace LOG
 
     bool need_log(const Level &level);
 
+    Level get_level() const;
+
     LogFormatter *get_formatter();
     LogOutput *get_output();
 
@@ -109,6 +111,12 @@ Logger::set_level(const Level &level)
   d->level = level;
 }
 
+Level
+Logger::get_level() const
+{
+  return d->get_level();
+}
+
 bool
 Logger::need_log(const Level &level) const
 {
@@ -139,6 +147,15 @@ bool
 LoggerPrivate::need_log(const Level &level)
 {
   return (use_parent_level && parent) ? parent->d->need_log(level) : this->level >= level;
+}
+
+Level
+LoggerPrivate::get_level() const
+{
+  if (use_parent_level && parent)
+    return parent->get_level();
+  else
+    return level;
 }
 
 LogFormatter *

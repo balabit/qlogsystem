@@ -35,6 +35,7 @@ private Q_SLOTS:
   void init();
   void cleanup();
   void test_need_log();
+  void test_log_level();
   void test_log();
   void test_logger_use_parent();
   void test_logger_different_log_level_than_parent();
@@ -90,6 +91,25 @@ LoggerTest::test_need_log()
   logger.set_level(LOG::DUMP);
 
   QVERIFY(logger.need_log(LOG::DEBUG));
+}
+
+void
+LoggerTest::test_log_level()
+{
+  LoggerMock parent_logger;
+  LoggerMock logger("name", &parent_logger);
+
+  parent_logger.set_level(LOG::DEBUG);
+  QCOMPARE(LOG::DEBUG, parent_logger.get_level());
+  QCOMPARE(LOG::DEBUG, logger.get_level());
+
+  parent_logger.set_level(LOG::CRITICAL);
+  QCOMPARE(LOG::CRITICAL, parent_logger.get_level());
+  QCOMPARE(LOG::CRITICAL, logger.get_level());
+
+  logger.set_level(LOG::DUMP);
+  QCOMPARE(LOG::CRITICAL, parent_logger.get_level());
+  QCOMPARE(LOG::DUMP, logger.get_level());
 }
 
 void
