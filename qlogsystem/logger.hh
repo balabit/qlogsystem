@@ -80,6 +80,8 @@ namespace LOG
      */
     void set_level(const Level &level);
 
+    Level get_level() const;
+
     /**
      * Whether to need log or not on the given level.
      *
