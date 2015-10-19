@@ -1,3 +1,9 @@
+qlogsystem (1.0.8) precise; urgency=low
+
+  * added method for querying the current log level from a logger
+
+ -- Domok Tamas <tamas.domok@balabit.com>  Mon, 19 Oct 2015 11:59:49 +0000
+
 qlogsystem (1.0.7) precise; urgency=low
 
   * msvc compile fixes
