@@ -1,0 +1,16 @@
+{
+  "name": "com.balabit.qlogsystem",
+  "description": "qlogsystem is a very efficient and easy to use logger library",
+  "author": {
+    "name": "Tamas Domok",
+    "email": "domoktamas@gmail.com"
+  },
+  "repository": {
+    "type": "GITHUB",
+    "url": "https://github.com/balabit/qlogsystem"
+  },
+  "version": {
+    "label": "1.0.8"
+  },
+  "license": "LGPL_2_1"
+}
