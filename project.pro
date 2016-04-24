@@ -15,7 +15,8 @@ OTHER_FILES += \
     qpm.json \
     qmldir \
     com_balabit_qlogsystem.pri \
-    com_balabit_qlogsystem.qrc
+    com_balabit_qlogsystem.qrc \
+    README.md
 
 include(coverage.prf)
 include(doxy.prf)
