@@ -1,7 +1,7 @@
 Source: qlogsystem
 Section: libs
 Priority: optional
-Build-Depends: debhelper (>= 7.0.50), libqt4-dev, doxygen, lcov
+Build-Depends: debhelper (>= 7.0.50), qt5-default, doxygen, lcov
 Maintainer: Domok Tamas <domoktamas@balabit.hu>
 Standards-Version: 3.9.2
 
