@@ -1,0 +1,8 @@
+include(../common.prf)
+
+CONFIG += nostrip
+
+scripts.path = $$BINDIR
+scripts.files = scripts/*.py
+
+INSTALLS += scripts
