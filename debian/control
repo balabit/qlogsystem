@@ -30,5 +30,5 @@ Package: qlogsystem-scripts
 Section: devel
 Priority: extra
 Architecture: any
-Depends: python2
+Depends: python2.7
 Description: qlogsystem scripts (log id generator)
