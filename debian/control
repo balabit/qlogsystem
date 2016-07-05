@@ -25,3 +25,10 @@ Priority: extra
 Architecture: any
 Depends: libqlogsystem1 (= ${binary:Version}), ${misc:Depends}
 Description: qlogsystem debugging symbols
+
+Package: qlogsystem-scripts
+Section: devel
+Priority: extra
+Architecture: any
+Depends: python2
+Description: qlogsystem scripts (log id generator)

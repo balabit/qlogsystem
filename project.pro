@@ -20,3 +20,4 @@ OTHER_FILES += \
 
 include(coverage.prf)
 include(doxy.prf)
+include(scripts/scripts.prf)
