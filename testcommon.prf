@@ -17,6 +17,7 @@ build_path = $${OUT_PWD}/../../qlogsystem
 # ugly hack
 windows {
   check.commands = "cp $${build_path}/qlogsystem.dll . &&" $$check.commands
+  check.commands = "cp $${build_path}/qlogsystem*.dll . &&" $$check.commands
 } else {
   QMAKE_RPATHDIR += $${OUT_PWD}/../../qlogsystem
 }

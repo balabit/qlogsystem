@@ -1,7 +1,5 @@
-!windows {
-  VERSION = $$system(cat $$PWD/VERSION)
-  DEFINES += QLOGSYSTEM_VERSION=\\\"$$VERSION\\\"
-}
+VERSION = $$cat($${PWD}/VERSION)
+DEFINES += QLOGSYSTEM_VERSION=\\\"$$VERSION\\\"
 
 INCDIR = $${PREFIX}/include
 LIBDIR = $${PREFIX}/lib
