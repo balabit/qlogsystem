@@ -12,15 +12,7 @@ INSTALLS += target
 
 CONFIG += testcase
 
-windows {
-  debug {
-    build_path = $${OUT_PWD}/../../qlogsystem/debug
-  } else {
-    build_path = $${OUT_PWD}/../../qlogsystem/release
-  }
-} else {
-  build_path = $${OUT_PWD}/../../qlogsystem
-}
+build_path = $${OUT_PWD}/../../qlogsystem
 
 # ugly hack
 windows {
