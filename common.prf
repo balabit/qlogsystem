@@ -1,11 +1,13 @@
-!windows {
-  VERSION = $$system(cat $$PWD/VERSION)
-  DEFINES += QLOGSYSTEM_VERSION=\\\"$$VERSION\\\"
-}
+VERSION = $$cat($${PWD}/VERSION)
+DEFINES += QLOGSYSTEM_VERSION=\\\"$$VERSION\\\"
 
 INCDIR = $${PREFIX}/include
 LIBDIR = $${PREFIX}/lib
 BINDIR = $${PREFIX}/bin
+
+# this prevents building under "release" and "debug" directories on windows,
+# which creates a consistent linking across platforms
+CONFIG -= debug_and_release
 
 coverage {
   message("Configuring compilation for coverage test.")
