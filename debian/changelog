@@ -1,3 +1,9 @@
+qlogsystem (1.0.12) precise; urgency=low
+
+  * Compile fixes
+
+ -- Tamas Domok <tamas.domok@balabit.com>  Thu, 20 Oct 2016 10:45:00 +0000
+
 qlogsystem (1.0.11) precise; urgency=low
 
   * Crosscompile support (win32 on linux)
