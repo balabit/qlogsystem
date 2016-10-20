@@ -17,6 +17,3 @@ coverage {
   QMAKE_LFLAGS   += $$COVERAGE_FLAGS
   CONFIG += debug
 }
-
-LIBS += -L$$LIBDIR
-INCLUDEPATH += $$INCDIR
