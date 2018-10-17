@@ -20,6 +20,9 @@ windows {
     check.commands = wine $$check.commands
   }
   check.commands = "cp $${build_path}/qlogsystem*.dll . &&" $$check.commands
+} macx {
+  # QMAKE_RPATHDIR is unfortunately not working on macos
+  check.commands = "env DYLD_LIBRARY_PATH='$${build_path}'" $$check.commands
 } else {
   QMAKE_RPATHDIR += $${OUT_PWD}/../../qlogsystem
 }
