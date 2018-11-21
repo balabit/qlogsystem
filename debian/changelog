@@ -1,3 +1,9 @@
+qlogsystem (1.0.13) xenial; urgency=low
+
+  * Better macos support
+
+ -- Tamas Domok <tamas.domok@balabit.com>  Wed, 21 Nov 2018 12:45:00 +0000
+
 qlogsystem (1.0.12) precise; urgency=low
 
   * Compile fixes
