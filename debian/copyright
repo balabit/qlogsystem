@@ -1,0 +1,5 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Files: *
+Copyright: 2013, Balazs Kocsi
+           2013, Tamas Domok
+License: LGPL-2.1
