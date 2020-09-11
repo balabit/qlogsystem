@@ -14,6 +14,8 @@ CONFIG += testcase
 
 build_path = $${OUT_PWD}/../../qlogsystem
 
+CONFIG += c++17
+
 !no-werror {
   QMAKE_CXXFLAGS += -Werror -Wno-error=comment
 }

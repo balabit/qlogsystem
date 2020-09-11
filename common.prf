@@ -9,6 +9,9 @@ BINDIR = $${PREFIX}/bin
 # which creates a consistent linking across platforms
 CONFIG -= debug_and_release
 
+QMAKE_CXXFLAGS += -O3
+CONFIG += c++17
+
 !no-werror {
   QMAKE_CXXFLAGS += -Werror -Wno-error=comment
 }
