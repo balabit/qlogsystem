@@ -1,3 +1,9 @@
+qlogsystem (1.0.15) bionic; urgency=low
+
+  * qt 5.15 deprecation fixes
+
+ -- Tamas Domok <tamas.domok@quest.com>  Fri, 11 Sept 2020 13:00:00 +0000
+
 qlogsystem (1.0.14) bionic; urgency=low
 
   * added debian/copyright
