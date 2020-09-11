@@ -18,6 +18,7 @@
  **********************************************************************************/
 
 #include "logspechandler.hh"
+#include "qtcompatibility.hh"
 
 #include <QStringList>
 #include <QTextStream>
@@ -134,7 +135,7 @@ LogSpecHandlerPrivate::createErrorString(const QString &log_spec, int pos)
   QTextStream stream(&errorString);
   stream.setCodec("utf-8");
 
-  stream << "Invalid logspec syntax:" << endl << endl;
-  stream << log_spec << endl;
+  stream << "Invalid logspec syntax:" << Qt::endl << Qt::endl;
+  stream << log_spec << Qt::endl;
   stream << QString("^").rightJustified(pos + 1);
 }

@@ -10,6 +10,7 @@ DEFINES += QLOGSYSTEM_LIBRARY
 SOURCES += \
     logger.cc \
     manager.cc \
+    qtcompatbility.cc \
     standardlogformatter.cc \
     timestampedstandardlogformatter.cc \
     iodeviceoutput.cc \
@@ -20,6 +21,7 @@ HEADERS += \
     logformatter.hh \
     logger.hh \
     loglevels.hh \
+    qtcompatibility.hh \
     standardlogformatter.hh \
     timestampedstandardlogformatter.hh \
     iodeviceoutput.hh \

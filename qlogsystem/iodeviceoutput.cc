@@ -18,6 +18,7 @@
  **********************************************************************************/
 
 #include "iodeviceoutput.hh"
+#include "qtcompatibility.hh"
 
 #include <QTextStream>
 #include <QIODevice>
@@ -99,5 +100,5 @@ IODeviceOutput::write_log(const QString &message)
 {
   QMutexLocker lock(&d->mutex);
 
-  d->stream << message << endl;
+  d->stream << message << Qt::endl;
 }

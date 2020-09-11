@@ -25,6 +25,7 @@
 #include <stdio.h>
 
 #include "iodeviceoutput.hh"
+#include "qtcompatibility.hh"
 
 class IodeviceoutputTest : public QObject
 {
@@ -44,7 +45,7 @@ private:
   {
     QByteArray message;
     QTextStream stream(&message);
-    stream << "message" << endl;
+    stream << "message" << Qt::endl;
 
     return message;
   }
