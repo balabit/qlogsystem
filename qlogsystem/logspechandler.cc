@@ -64,7 +64,11 @@ LogSpecHandler::update_logsystem(const QString &log_spec)
   d->error = None;
   d->errorString.clear();
 
-  QStringList setting_entries = log_spec.split(";", QString::SkipEmptyParts);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+  const QStringList setting_entries = log_spec.split(";", Qt::SkipEmptyParts);
+#else
+  const QStringList setting_entries = log_spec.split(";", QString::SkipEmptyParts);
+#endif
 
   typedef QList< Component > Components;
   Components components;
