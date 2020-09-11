@@ -112,13 +112,13 @@ Examples:
 \code
 # Generating log ids in a given directory
 # NOTE: it will modify the files!
-python2 scripts/logid-generator.py -d <directory>
+scripts/logid-generator.py -d <directory>
 
 # Checking log ids in a given directory (uniquity, not-null ids)
-python2 scripts/logid-generator.py -d <directory> -c
+scripts/logid-generator.py -d <directory> -c
 
 # Log id to version
-python2 scripts/logid-info.py <log-id>
+scripts/logid-info.py <log-id>
 \endcode
 
 \section qlogsystem_building Building

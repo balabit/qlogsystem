@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import sys
 import math
@@ -27,7 +27,7 @@ def calculate_shifts():
   version_bits = sum(needed_bits)
 
   if ID_BITS <= version_bits:
-    print 'ERROR Wrong settings, ID_BITS are too low'
+    print('ERROR Wrong settings, ID_BITS are too low')
     exit(-1)
 
   VERSION_SHIFT = 2 ** (ID_BITS - version_bits)
@@ -36,7 +36,7 @@ def calculate_shifts():
 
 def main():
   if len(sys.argv) != 2:
-    print 'Usage %s ID' % sys.argv[0]
+    print('Usage %s ID' % sys.argv[0])
     exit(1)
 
   calculate_shifts()
@@ -53,7 +53,7 @@ def main():
 
   build = _prefix_part
 
-  print '%d.%d.%d' % (major, minor, build)
+  print('%d.%d.%d' % (major, minor, build))
 
 if __name__ == '__main__':
   main()
