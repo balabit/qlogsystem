@@ -187,7 +187,7 @@ private:
 void
 ThreadsafetyTest::test_logger_init_from_multiple_thread()
 {
-  qsrand(123456789);
+  srand(123456789);
 
   QStringList loggers;
 
@@ -195,12 +195,12 @@ ThreadsafetyTest::test_logger_init_from_multiple_thread()
   static const int LOGGERS_SIZE = 1000;
   while (loggers.count() != LOGGERS_SIZE)
     {
-      int hierarchy_size = (qrand() % COMPONENTS_SIZE) + 1;
+      int hierarchy_size = (rand() % COMPONENTS_SIZE) + 1;
 
       QString id;
       while (hierarchy_size > 0)
         {
-          id += QString::number((qrand() % COMPONENTS_SIZE) + 1);
+          id += QString::number((rand() % COMPONENTS_SIZE) + 1);
 
           --hierarchy_size;
         }
