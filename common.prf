@@ -9,6 +9,10 @@ BINDIR = $${PREFIX}/bin
 # which creates a consistent linking across platforms
 CONFIG -= debug_and_release
 
+!no-werror {
+  QMAKE_CXXFLAGS += -Werror -Wno-error=comment
+}
+
 coverage {
   message("Configuring compilation for coverage test.")
   COVERAGE_FLAGS = --coverage -O0
