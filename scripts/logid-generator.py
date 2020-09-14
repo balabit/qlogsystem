@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 ''' ID generator script '''
 
@@ -37,7 +37,7 @@ def get_prefix(version_file):
   global MAJOR, MINOR, BUILD
   global VERSION_SHIFT, MAJOR_SHIFT, MINOR_SHIFT
   if not os.path.exists(version_file):
-    print >>sys.stderr, 'VERSION file doesn\'t exists'
+    print('VERSION file doesn\'t exists', file=sys.stderr)
     exit(1)
 
   f = open(version_file, 'r')
@@ -51,17 +51,17 @@ def get_prefix(version_file):
     version_parts.append('0')
 
   # Convert string to int
-  version_parts = map(int, version_parts)
+  version_parts = list(map(int, version_parts))
 
   # Map MAJOR version 1 -> 0
   version_parts[0] = version_parts[0] - 1
 
   if version_parts[0] >= MAJOR or version_parts[1] >= MINOR or version_parts[2] >= BUILD:
-    print >>sys.stderr, 'ERROR you have reached the limit of the version number! Max is: %d-%d-%d (No the limit is not the sky)' % (MAJOR, MINOR, BUILD), ver
+    print('ERROR you have reached the limit of the version number! Max is: %d-%d-%d (No the limit is not the sky)' % (MAJOR, MINOR, BUILD), ver, file=sys.stderr)
     exit(1)
 
   ret_val = (version_parts[0] * MAJOR_SHIFT + version_parts[1] * MINOR_SHIFT + version_parts[2]) * VERSION_SHIFT
-  print 'Prefix for log IDs:', ret_val
+  print('Prefix for log IDs:', ret_val)
   return ret_val
 
 def filter_code(_file):
@@ -79,7 +79,7 @@ def collect_files(directory):
       del dirs[dirs.index("unit")]
       continue
 
-    files = filter(filter_code, files)
+    files = list(filter(filter_code, files))
     for _file in files:
       all_file.append(os.path.join(root, _file))
 
@@ -115,19 +115,19 @@ def check_ids(exit_if_zero):
 
   # Delete items with 0 ID
   if 0 in items:
-    print "0 ID count:", len(items[0])
+    print("0 ID count:", len(items[0]))
     del items[0]
     if exit_if_zero:
       exit(1)
 
   # Collect IDs where count > 1
-  duplications = [[_id, data]  for _id, data in items.iteritems()   if len(data) > 1]
+  duplications = [[_id, data]  for _id, data in items.items()   if len(data) > 1]
   if len(duplications) > 0:
-    print >>sys.stderr, "ERROR ID duplications"
+    print("ERROR ID duplications", file=sys.stderr)
     for wrong_id in duplications:
-      print "ID: ", wrong_id[0]
+      print("ID: ", wrong_id[0])
       for error in wrong_id[1]:
-        print error
+        print(error)
     exit(1)
 
 def replace_id(start_id):
@@ -164,7 +164,7 @@ def calculate_shifts():
   version_bits = sum(needed_bits)
 
   if ID_BITS <= version_bits:
-    print >>sys.stderr, 'ERROR Wrong settings, ID_BITS are too low'
+    print('ERROR Wrong settings, ID_BITS are too low', file=sys.stderr)
     exit(1)
 
   VERSION_SHIFT = 2 ** (ID_BITS - version_bits)
@@ -172,7 +172,7 @@ def calculate_shifts():
   MAJOR_SHIFT = 2 ** (needed_bits[2] + needed_bits[1])
 
 def main(directory, check):
-  print 'In Main', directory
+  print('In Main', directory)
 
   calculate_shifts()
 
@@ -192,7 +192,7 @@ def main(directory, check):
 
     for data in matched_logs:
       replace_log_in_file(data)
-      print data['line'], data['new']
+      print(data['line'], data['new'])
 
 if __name__ == '__main__':
   parser = OptionParser()
@@ -204,6 +204,6 @@ if __name__ == '__main__':
   check = options.check
 
   if directory is None or not os.path.exists(directory):
-    print >>sys.stderr, "No directory given or specified directory does'nt exist"
+    print("No directory given or specified directory does'nt exist", file=sys.stderr)
   else:
     main(directory, check)

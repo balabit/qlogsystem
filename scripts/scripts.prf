@@ -6,3 +6,5 @@ scripts.path = $$BINDIR
 scripts.files = scripts/*.py
 
 INSTALLS += scripts
+
+OTHER_FILES += scripts/*.py

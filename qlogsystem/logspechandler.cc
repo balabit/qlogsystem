@@ -18,6 +18,7 @@
  **********************************************************************************/
 
 #include "logspechandler.hh"
+#include "qtcompatibility.hh"
 
 #include <QStringList>
 #include <QTextStream>
@@ -63,7 +64,11 @@ LogSpecHandler::update_logsystem(const QString &log_spec)
   d->error = None;
   d->errorString.clear();
 
-  QStringList setting_entries = log_spec.split(";", QString::SkipEmptyParts);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+  const QStringList setting_entries = log_spec.split(";", Qt::SkipEmptyParts);
+#else
+  const QStringList setting_entries = log_spec.split(";", QString::SkipEmptyParts);
+#endif
 
   typedef QList< Component > Components;
   Components components;
@@ -134,7 +139,7 @@ LogSpecHandlerPrivate::createErrorString(const QString &log_spec, int pos)
   QTextStream stream(&errorString);
   stream.setCodec("utf-8");
 
-  stream << "Invalid logspec syntax:" << endl << endl;
-  stream << log_spec << endl;
+  stream << "Invalid logspec syntax:" << Qt::endl << Qt::endl;
+  stream << log_spec << Qt::endl;
   stream << QString("^").rightJustified(pos + 1);
 }
