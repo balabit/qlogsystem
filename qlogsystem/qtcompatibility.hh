@@ -21,13 +21,14 @@
 #define QLOGSYSTEM_QTCOMPATIBILITY_HH
 
 #include <QTextStream>
+#include "qlogsystem_global.hh"
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
 
 namespace Qt
 {
 
-  QTextStream &endl(QTextStream &s);
+  QLOGSYSTEMSHARED_EXPORT QTextStream &endl(QTextStream &s);
 
 }  // namespace Qt
 

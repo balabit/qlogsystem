@@ -10,7 +10,7 @@ DEFINES += QLOGSYSTEM_LIBRARY
 SOURCES += \
     logger.cc \
     manager.cc \
-    qtcompatbility.cc \
+    qtcompatibility.cc \
     standardlogformatter.cc \
     timestampedstandardlogformatter.cc \
     iodeviceoutput.cc \
