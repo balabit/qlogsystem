@@ -7,9 +7,8 @@ import sys
 import os
 from os.path import join, getsize
 import re
-import fileinput
 import math
-import collections
+from collections import Counter
 
 ID_BITS = 32 #bit
 
@@ -19,13 +18,10 @@ MINOR = 32
 BUILD = 32
 
 # Find log messages, there is a format ID string parameter
-log_re_string = r'log_(?P<TYPE>\w+)\((?P<COMPONENT>(\w|::|\->)+)\,(\s|)%(ID)s,(\s|)(?P<MSG>.*)'
-# RE for finding log messages with 0 ID
-log0_re = re.compile(log_re_string % {'ID': 0})
-log_max_re = re.compile(log_re_string % {'ID': '(?P<ID>\d+)'})
+log_re_string = r'log_(?P<TYPE>.*)\s*\(\s*(?P<COMPONENT>[A-Z]*)\s*,\s*(?P<ID>\d+)\s*,\s*(?P<MSG>(.|\s)*?)\s*\)\s*;'
+log_re = re.compile(log_re_string, re.MULTILINE)
 
-matched_logs = []
-ids = []
+all_logs = []
 
 VERSION_SHIFT = 0
 MAJOR_SHIFT = 0
@@ -85,69 +81,55 @@ def collect_files(directory):
 
   return all_file
 
-def collect_logs(_file, prefix, max_id):
-  ''' Collect logs from the given file, and find the max id within this prefix by the given RE '''
+def collect_all_logs(_file):
+  with open(_file, 'r') as f:
+    logs = re.findall(log_re, f.read())
+    if logs:
+      all_logs.append({'file': _file, "logs": logs})
 
+def max_log_ID(max_id, prefix):
   global VERSION_SHIFT
-  f = open(_file, 'r')
+  for logs in all_logs:
+    for log in logs['logs']:
+      if max_id < int(log[2]):
+        max_id = int(log[2])
 
-  for (i, line) in enumerate(f.readlines()):
-    # Check for 0 id
-    if log0_re.search(line) != None:
-      matched_logs.append({'file': _file, 'line_num': i, 'line': line, 'new': ''})
-
-    # Check max id
-    search_res = log_max_re.search(line)
-    if search_res is not None:
-      _id = int(search_res.group('ID'))
-      ids.append({'id': _id, 'file': _file, 'line_num': i})
-      if (_id != 0) and (_id >= prefix and _id < (prefix + VERSION_SHIFT)) and (max_id < _id):
-        max_id = _id
-
-  return max_id
+  if max_id >= prefix and max_id < (prefix + VERSION_SHIFT):
+    return max_id
+  else:
+    exit(1)
 
 def check_ids(exit_if_zero):
   ''' Find colliding IDs '''
+  count = Counter({'0': 0})
+  for logs in all_logs:
+    count += (Counter(log_ID[2] for log_ID in logs['logs']))
 
-  items = collections.defaultdict(list)
-  for i, item in enumerate(ids):
-    items[item['id']].append(item)
+  duplacated_ids = [k for (k,v) in Counter(count).items() if v > 1]
+  print("0 ID count:", count['0'])
 
-  # Delete items with 0 ID
-  if 0 in items:
-    print("0 ID count:", len(items[0]))
-    del items[0]
-    if exit_if_zero:
-      exit(1)
-
-  # Collect IDs where count > 1
-  duplications = [[_id, data]  for _id, data in items.items()   if len(data) > 1]
-  if len(duplications) > 0:
-    print("ERROR ID duplications", file=sys.stderr)
-    for wrong_id in duplications:
-      print("ID: ", wrong_id[0])
-      for error in wrong_id[1]:
-        print(error)
+  if (duplacated_ids or count['0']) and exit_if_zero:
+    for i in duplacated_ids:
+      print("logID:", i, "is duplacated", count[i], "times")
     exit(1)
 
-def replace_id(start_id):
-  ''' Replace the 0 id with proper one '''
-
-  _id = start_id
-  for data in matched_logs:
-    #print data['line']
-    data['new'] = log0_re.sub('log_\g<TYPE>(\g<COMPONENT>, %#d, \g<MSG>' % (_id), data['line'])
-    _id += 1
-
-def replace_log_in_file(data):
+def replace_log_in_file(file_with_logs, max_id, prefix):
   ''' Replace the log in the file '''
+  with open (file_with_logs['file'], 'r+' ) as f:
+    content = f.read()
+    f.seek(0)
 
-  # Read a line and after that redirect the stdout into the file
-  for i, line in enumerate(fileinput.input(data['file'], inplace = 1)):
-    if i == data['line_num']:
-      sys.stdout.write(data['new'])
-    else:
-      sys.stdout.write(line)
+    for match in re.finditer(log_re_string, content):
+      if match['ID'] == '0':
+        max_id += 1
+        new_log = re.sub('0', str(int(max_id)), match.group(0))
+        print(new_log)
+        content = content.replace(match.group(0), new_log)
+
+    f.write(content)
+    f.truncate()
+
+  return max_id
 
 def calculate_shifts():
   ''' Calculate the shifts of the different fields '''
@@ -173,7 +155,6 @@ def calculate_shifts():
 
 def main(directory, check):
   print('In Main', directory)
-
   calculate_shifts()
 
   files = collect_files(directory)
@@ -182,17 +163,15 @@ def main(directory, check):
   max_id = prefix
 
   for _file in files:
-    max_id = collect_logs(_file, prefix, max_id)
+    collect_all_logs(_file)
+
+  max_id = max_log_ID(max_id, prefix)
 
   check_ids(check)
 
-  # If not in check mod
   if not check:
-    replace_id(max_id + 1)
-
-    for data in matched_logs:
-      replace_log_in_file(data)
-      print(data['line'], data['new'])
+    for file_with_logs in all_logs:
+      max_id = replace_log_in_file(file_with_logs, max_id, prefix)
 
 if __name__ == '__main__':
   parser = OptionParser()
