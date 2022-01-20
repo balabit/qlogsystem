@@ -1,3 +1,9 @@
+qlogsystem (1.1.1) bionic; urgency=low
+
+  * logid_generator can accept excluded dir list
+
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 19 Jan 2022 12:10:00 +0000
+
 qlogsystem (1.1.0) bionic; urgency=low
 
   * logid_generator can handle multiline logs

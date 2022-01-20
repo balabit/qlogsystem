@@ -60,26 +60,27 @@ def get_prefix(version_file):
   print('Prefix for log IDs:', ret_val)
   return ret_val
 
-def filter_code(_file):
-  ''' Check for hh or cc files '''
+def any_match(path, excludes):
+  for exclude in excludes:
+    if re.search(exclude, path) is not None:
+      return True
 
-  return re.match(r'.*\.(cc|hh)$', _file) != None
+  return False
 
-def collect_files(directory):
-  ''' Collect files from the given directory, filter with filter_code function '''
-
-  all_file = []
+def collect_files(directory, excludes, extensions):
+  ''' Collect files with the given extensions from the given directory '''
+  all_files = []
   for root, dirs, files in os.walk(directory):
-    # remove the unit test directory as we should not check it for log ID-s
-    if "unit" in dirs:
-      del dirs[dirs.index("unit")]
-      continue
+    for name in dirs:
+      if any_match(os.path.join(root, name), excludes):
+        del dirs[dirs.index(name)]
 
-    files = list(filter(filter_code, files))
-    for _file in files:
-      all_file.append(os.path.join(root, _file))
+    for name in files:
+      path = os.path.join(root, name)
+      if re.match(extensions, path) is not None and not any_match(path, excludes):
+        all_files.append(path)
 
-  return all_file
+  return all_files
 
 def collect_all_logs(_file):
   with open(_file, 'r') as f:
@@ -97,6 +98,7 @@ def max_log_ID(max_id, prefix):
   if max_id >= prefix and max_id < (prefix + VERSION_SHIFT):
     return max_id
   else:
+    print("Error: the max log id must be between [{}, {}), actual: {}".format(prefix, (prefix + VERSION_SHIFT), max_id))
     exit(1)
 
 def check_ids(exit_if_zero):
@@ -153,11 +155,11 @@ def calculate_shifts():
   MINOR_SHIFT = 2 ** needed_bits[2]
   MAJOR_SHIFT = 2 ** (needed_bits[2] + needed_bits[1])
 
-def main(directory, check):
+def main(directory, check, excludes, extensions):
   print('In Main', directory)
   calculate_shifts()
 
-  files = collect_files(directory)
+  files = collect_files(directory, excludes, extensions)
 
   prefix = get_prefix(os.path.join(directory, 'VERSION'))
   max_id = prefix
@@ -177,12 +179,16 @@ if __name__ == '__main__':
   parser = OptionParser()
   parser.add_option("-d", "--directory", dest="directory", nargs=1, help="Source directory")
   parser.add_option("-c", "--check", dest="check", action="store_true", default=False, help="Check for colliding IDs")
+  parser.add_option("-e", "--excludes", dest="excludes", action="append", default=[], type=str, help="Exclude regex pattern")
+  parser.add_option("-f", "--file-extensions", dest="extensions", action="append", default=r'.*\.(cc|hh|cpp|h)$', type=str, help="Source file regex pattern")
   (options, args) = parser.parse_args()
 
   directory = options.directory
   check = options.check
+  excludes = [re.compile(exclude) for exclude in options.excludes]
+  extensions = re.compile(options.extensions)
 
   if directory is None or not os.path.exists(directory):
     print("No directory given or specified directory does'nt exist", file=sys.stderr)
   else:
-    main(directory, check)
+    main(directory, check, excludes, extensions)
