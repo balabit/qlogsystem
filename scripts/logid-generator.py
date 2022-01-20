@@ -92,14 +92,11 @@ def max_log_ID(max_id, prefix):
   global VERSION_SHIFT
   for logs in all_logs:
     for log in logs['logs']:
-      if max_id < int(log[2]):
+      log_id = int(log[2])
+      if log_id != 0 and (log_id >= prefix and log_id < (prefix + VERSION_SHIFT)) and (max_id < log_id):
         max_id = int(log[2])
 
-  if max_id >= prefix and max_id < (prefix + VERSION_SHIFT):
-    return max_id
-  else:
-    print("Error: the max log id must be between [{}, {}), actual: {}".format(prefix, (prefix + VERSION_SHIFT), max_id))
-    exit(1)
+  return max_id
 
 def check_ids(exit_if_zero):
   ''' Find colliding IDs '''

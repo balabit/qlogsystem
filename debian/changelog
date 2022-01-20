@@ -1,3 +1,9 @@
+qlogsystem (1.1.2) bionic; urgency=low
+
+  * choose maxID for the given version
+
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 20 Jan 2022 17:45:00 +0000
+
 qlogsystem (1.1.1) bionic; urgency=low
 
   * logid_generator can accept excluded dir list
