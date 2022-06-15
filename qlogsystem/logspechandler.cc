@@ -137,7 +137,9 @@ void
 LogSpecHandlerPrivate::createErrorString(const QString &log_spec, int pos)
 {
   QTextStream stream(&errorString);
-  stream.setCodec("utf-8");
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+  stream.setCodec("UTF-8");
+#endif
 
   stream << "Invalid logspec syntax:" << Qt::endl << Qt::endl;
   stream << log_spec << Qt::endl;

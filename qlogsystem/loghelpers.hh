@@ -105,7 +105,10 @@ namespace LOG
     QString message;
 
     QTextStream stream(&message);
-    stream.setCodec("utf-8");
+    
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    stream.setCodec("UTF-8");
+#endif
 
     param1.delimiter = QString(";");
 
