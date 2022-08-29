@@ -18,7 +18,7 @@ MINOR = 32
 BUILD = 32
 
 # Find log messages, there is a format ID string parameter
-log_re_string = r'log_(?P<TYPE>.*)\s*\(\s*(?P<COMPONENT>[A-Z]*)\s*,\s*(?P<ID>\d+)\s*,\s*(?P<MSG>(.|\s)*?)\s*\)\s*;'
+log_re_string = r'log_(?P<TYPE>.*)\s*\(\s*(?P<COMPONENT>[\w\.\"]*)\s*,\s*(?P<ID>\d+)\s*,\s*(?P<MSG>(.|\s)*?)\s*\)\s*;'
 log_re = re.compile(log_re_string, re.MULTILINE)
 
 all_logs = []
