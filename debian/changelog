@@ -1,3 +1,9 @@
+qlogsystem (1.1.5) focal; urgency=low
+
+  * logid_generator can accept all letters as COMPONENT
+
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 29 Aug 2022 16:45:00 +0000
+
 qlogsystem (1.1.4) focal; urgency=low
 
   * compatibility with qt6
