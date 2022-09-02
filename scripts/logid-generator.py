@@ -121,7 +121,7 @@ def replace_log_in_file(file_with_logs, max_id, prefix):
     for match in re.finditer(log_re_string, content):
       if match['ID'] == '0':
         max_id += 1
-        new_log = re.sub('0', str(int(max_id)), match.group(0))
+        new_log = re.sub('0', str(int(max_id)), match.group(0), count=1)
         print(new_log)
         content = content.replace(match.group(0), new_log)
 
