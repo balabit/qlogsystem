@@ -1,3 +1,9 @@
+qlogsystem (1.1.6) focal; urgency=low
+
+   * logid_generator change only the first 0 in log message
+
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 02 Sep 2022 11:58:00 +0000
+
 qlogsystem (1.1.5) focal; urgency=low
 
   * logid_generator can accept all letters as COMPONENT
