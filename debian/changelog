@@ -1,44 +1,50 @@
+qlogsystem (1.1.9) jammy; urgency=low
+
+   * compatibility with debhelper version 13+
+
+ -- Imre Steiner <imre.steiner@oneidentity.com>  Thu, 10 Oct 2024 12:34:00 +0200
+
 qlogsystem (1.1.8) focal; urgency=low
 
    * dependency change, support focal and jammy
 
- -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 16 Nov 2022 12:34:00 +0000
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed, 16 Nov 2022 12:34:00 +0000
 
 qlogsystem (1.1.7) focal; urgency=low
 
    * pre release for support both focal and jammy
 
- -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 16 Nov 2022 12:34:00 +0000
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed, 16 Nov 2022 12:34:00 +0000
 
 qlogsystem (1.1.6) focal; urgency=low
 
    * logid_generator change only the first 0 in log message
 
- -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 02 Sep 2022 11:58:00 +0000
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed, 02 Sep 2022 11:58:00 +0000
 
 qlogsystem (1.1.5) focal; urgency=low
 
   * logid_generator can accept all letters as COMPONENT
 
- -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 29 Aug 2022 16:45:00 +0000
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed, 29 Aug 2022 16:45:00 +0000
 
 qlogsystem (1.1.4) focal; urgency=low
 
   * compatibility with qt6
 
- -- Botond Petras  <botond.petras@quest.com>  Tue 05 Jul 2022 11:55:00 +0100
+ -- Botond Petras  <botond.petras@quest.com>  Tue, 05 Jul 2022 11:55:00 +0100
 
 qlogsystem (1.1.2) bionic; urgency=low
 
   * choose maxID for the given version
 
- -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 20 Jan 2022 17:45:00 +0000
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed, 20 Jan 2022 17:45:00 +0000
 
 qlogsystem (1.1.1) bionic; urgency=low
 
   * logid_generator can accept excluded dir list
 
- -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed 19 Jan 2022 12:10:00 +0000
+ -- Zsofia Bircher <zsofia.bircher@quest.com>  Wed, 19 Jan 2022 12:10:00 +0000
 
 qlogsystem (1.1.0) bionic; urgency=low
 
@@ -50,7 +56,7 @@ qlogsystem (1.0.15) bionic; urgency=low
 
   * qt 5.15 deprecation fixes
 
- -- Tamas Domok <tamas.domok@quest.com>  Fri, 11 Sept 2020 13:00:00 +0000
+ -- Tamas Domok <tamas.domok@quest.com>  Fri, 11 Sep 2020 13:00:00 +0000
 
 qlogsystem (1.0.14) bionic; urgency=low
 
