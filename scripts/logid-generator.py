@@ -41,7 +41,7 @@ def get_prefix(version_file):
   version_parts = ver.split('.')
 
   # Remove alphanumeric letters
-  version_parts[-1] = re.sub('^(?P<NUM>\d+).*$', '\g<NUM>', version_parts[-1])
+  version_parts[-1] = re.sub(r'^(?P<NUM>\d+).*$', r'\g<NUM>', version_parts[-1])
 
   if len(version_parts) == 2:
     version_parts.append('0')

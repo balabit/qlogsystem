@@ -1,3 +1,9 @@
+qlogsystem (1.1.10) noble; urgency=low
+
+  * fix python regexes for python 3.12
+
+ -- Varga Peter Zoltan <peter.varga@oneidentity.com>  Mon, 20 Jan 2025 13:48:33 +0100
+
 qlogsystem (1.1.9) jammy; urgency=low
 
    * compatibility with debhelper version 13+
