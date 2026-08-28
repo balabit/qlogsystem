@@ -66,7 +66,11 @@ IODeviceOutput *
 IODeviceOutput::create_from_file(FILE *file_descriptor)
 {
   QFile *filelogger = new QFile();
-  filelogger->open(file_descriptor, QIODevice::WriteOnly | QIODevice::Text);
+  if (!filelogger->open(file_descriptor, QIODevice::WriteOnly | QIODevice::Text))
+    {
+      delete filelogger;
+      return 0;
+    }
   return IODeviceOutput::create(filelogger);
 }
 

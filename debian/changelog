@@ -1,3 +1,9 @@
+qlogsystem (1.1.11) noble; urgency=low
+
+  * compatibility with Qt 6.11
+
+ -- Imre Steiner <imre.steiner@oneidentity.com>  Fri, 28 Aug 2026 08:01:16 +0200
+
 qlogsystem (1.1.10) noble; urgency=low
 
   * fix python regexes for python 3.12
